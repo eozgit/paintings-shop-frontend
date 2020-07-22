@@ -46,16 +46,16 @@ interface FormData {
 }
 
 interface LoginResponse {
-    key?: string
+    refresh?: string,
+    access?: string,
     username?: string[],
-    email?: string[],
     password?: string[],
-    non_field_errors?: string[],
+    detail?: string
 }
 
 export default defineComponent({
   name: 'Registration',
-  setup () {
+  setup (props, context) {
     const data: FormData = {
       username: '',
       password: '',
@@ -69,7 +69,7 @@ export default defineComponent({
 
       const body = JSON.stringify({
         username: formData.username,
-        password: formData.password,
+        password: formData.password
       })
 
       const requestOptions = {
@@ -78,24 +78,28 @@ export default defineComponent({
         body
       }
 
-      const response = await fetch('http://localhost:8000/rest-auth/login/', requestOptions)
+      const response = await fetch('http://localhost:8000/api/token/', requestOptions)
 
       const json = await response.json() as LoginResponse
+
+      if (json.access) {
+        localStorage.token = json.access
+        context.root.$store.dispatch('paintings/setToken', json.access)
+        context.root.$options.router?.push('paintings');
+      }
 
       formData.hints = []
       if (json.username) {
         formData.hints = [...formData.hints, ...json.username]
       }
-      if (json.email) {
-        formData.hints = [...formData.hints, ...json.email]
-      }
       if (json.password) {
         formData.hints = [...formData.hints, ...json.password]
       }
-      if (json.non_field_errors) {
-        formData.hints = [...formData.hints, ...json.non_field_errors]
+      if (json.detail) {
+        formData.hints = [...formData.hints, json.detail]
       }
     }
+
     return { ...toRefs(formData), onSubmit }
   }
 })

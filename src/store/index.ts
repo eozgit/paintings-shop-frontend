@@ -1,8 +1,8 @@
 import { store } from 'quasar/wrappers'
 import Vuex from 'vuex'
 
-// import example from './module-example';
-// import { ExampleStateInterface } from './module-example/state';
+import paintings from './paintings'
+import { PaintingsStateInterface } from './paintings/state'
 
 /*
  * If not building with SSR mode, you can
@@ -11,17 +11,24 @@ import Vuex from 'vuex'
 
 export interface StoreInterface {
   // Define your own store structure, using submodules if needed
-  // example: ExampleStateInterface;
+  paintings: PaintingsStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  example: unknown;
+  // example: unknown;
 }
 
+export interface AppStore {
+  getters: {
+    'paintings/hasToken': boolean
+  }
+}
+
+let Store
 export default store(function ({ Vue }) {
   Vue.use(Vuex)
 
-  const Store = new Vuex.Store<StoreInterface>({
+  Store = new Vuex.Store<StoreInterface>({
     modules: {
-      // example
+      paintings
     },
 
     // enable strict mode (adds overhead!)
@@ -31,3 +38,5 @@ export default store(function ({ Vue }) {
 
   return Store
 })
+
+export { Store }

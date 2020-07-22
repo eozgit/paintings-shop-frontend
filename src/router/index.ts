@@ -8,10 +8,11 @@ import routes from './routes'
  * directly export the Router instantiation
  */
 
+let Router
 export default route<StoreInterface>(function ({ Vue }) {
   Vue.use(VueRouter)
 
-  const Router = new VueRouter({
+  Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
 
@@ -24,3 +25,5 @@ export default route<StoreInterface>(function ({ Vue }) {
 
   return Router
 })
+
+export { Router }

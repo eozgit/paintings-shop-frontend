@@ -1,8 +1,10 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
-
-export interface Meta {
-  totalCount: number;
+export interface Painting {
+  id: number,
+  title: string,
+  date: string,
+  media: string,
+  height: number,
+  width: number,
+  imageUrl: string,
+  price: number
 }
