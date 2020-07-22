@@ -1,5 +1,5 @@
 import { RouteConfig } from 'vue-router'
-// import { Store, AppStore } from '../store'
+import { Store, AppStore } from '../store'
 
 const routes: RouteConfig[] = [
   {
@@ -9,12 +9,22 @@ const routes: RouteConfig[] = [
       {
         path: 'registration',
         component: () => import('pages/Registration.vue')
-        // beforeEnter: (to, from, next) => {
-        //   const store = Store as AppStore
-        // }
       },
-      { path: 'login', component: () => import('pages/Login.vue') },
-      { path: 'paintings', component: () => import('pages/Paintings.vue') }
+      {
+        path: 'login',
+        component: () => import('pages/Login.vue'),
+        beforeEnter: (to, from, next) => {
+          const store = Store as AppStore
+          next()
+        }
+      },
+      {
+        path: 'paintings',
+        component: () => import('pages/Paintings.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      }
     ]
   },
 

@@ -15,15 +15,6 @@
 
       <q-input
         filled
-        type="email"
-        v-model="email"
-        label="Email address *"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Email address cannot be empty']"
-      />
-
-      <q-input
-        filled
         type="password"
         v-model="password"
         label="Password *"
@@ -75,7 +66,7 @@ interface RegistrationResponse {
 
 export default defineComponent({
   name: 'Registration',
-  setup () {
+  setup (props, context) {
     const data: FormData = {
       username: '',
       email: '',
@@ -91,7 +82,7 @@ export default defineComponent({
 
       const body = JSON.stringify({
         username: formData.username,
-        email: formData.email,
+        email: `${new Date().getTime()}@example.com`,
         password1: formData.password,
         password2: formData.confirm
       })
@@ -105,6 +96,10 @@ export default defineComponent({
       const response = await fetch('http://localhost:8000/rest-auth/registration/', requestOptions)
 
       const json = await response.json() as RegistrationResponse
+
+      if (json.key) {
+        context.root.$options.router?.push('login');
+      }
 
       formData.hints = []
       if (json.username) {

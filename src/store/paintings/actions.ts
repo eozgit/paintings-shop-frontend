@@ -23,7 +23,7 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
 
     const response = await fetch('http://localhost:8000/paintings/', requestOptions)
     const json = await response.json() as Painting[] & { code: string }
-    console.log(json)
+
     if (json.code === 'token_not_valid') {
       Router.push('login')
     } else {
