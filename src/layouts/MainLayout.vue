@@ -1,7 +1,9 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
-      <router-view />
+      <div class="centering">
+        <router-view />
+      </div>
     </q-page-container>
   </q-layout>
 </template>
@@ -11,3 +13,11 @@ export default {
   name: 'MainLayout'
 }
 </script>
+
+<style lang="scss" scoped>
+.centering {
+  display: grid;
+  place-items:  center;
+  height: 100vh;
+}
+</style>
