@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="q-pa-md row items-start q-gutter-md margin-1em">
-        <painting v-for="painting in paintingsOnPage" :key="painting.id" :painting="painting" />
+        <painting v-for="painting in paintings" :key="painting.id" :painting="painting" />
     </div>
     <div class="q-pa-lg flex flex-center">
       <q-pagination
         v-model="page"
         :max="maxPage"
         :input="true"
+        @input="loadPage"
       >
       </q-pagination>
     </div>
@@ -27,17 +28,24 @@ export default defineComponent({
     const itemsPerPage = 4
     const state = reactive({
       page: 1,
-      paintings: computed(() => context.root.$store.state.paintings.paintings),
-      maxPage: computed(() => Math.ceil(state.paintings.length / itemsPerPage)),
-      firstIndex: computed(() => (state.page - 1) * itemsPerPage),
-      paintingsOnPage: computed(() => state.paintings.slice(state.firstIndex, state.firstIndex + itemsPerPage))
+      paintingsData: computed(() => context.root.$store.state.paintings.paintingsData),
+      paintings: computed(() => state.paintingsData.results),
+      maxPage: computed(() => Math.ceil(state.paintingsData.count / itemsPerPage))
     })
+
+    function loadPaintings (page: number) {
+      context.root.$store.dispatch('paintings/loadPaintings', { page })
+    }
 
     onMounted(() => {
-      context.root.$store.dispatch('paintings/loadPaintings')
+      loadPaintings(1)
     })
 
-    return { ...toRefs(state), itemsPerPage }
+    function loadPage (page) {
+      loadPaintings(page)
+    }
+
+    return { ...toRefs(state), itemsPerPage, loadPage }
   }
 })
 </script>

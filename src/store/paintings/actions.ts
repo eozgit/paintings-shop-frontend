@@ -11,7 +11,7 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
   setToken (context, payload) {
     context.commit('setToken', payload)
   },
-  async loadPaintings (context) {
+  async loadPaintings (context, { page }) {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
     headers.append('Authorization', `Bearer ${context.getters.token}`)
@@ -21,13 +21,13 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
       headers
     }
 
-    const response = await fetch('http://localhost:8000/paintings/', requestOptions)
-    const json = await response.json() as Painting[] & { code: string }
+    const response = await fetch('http://localhost:8000/paintings/' + `?page=${page}`, requestOptions)
+    const json = await response.json() as PaintingsData & { code: string }
 
     if (json.code === 'token_not_valid') {
       Router.push('login')
     } else {
-      context.commit('setPaintings', json)
+      context.commit('setPaintingsData', json)
     }
   }
 }
