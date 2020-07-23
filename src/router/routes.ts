@@ -1,5 +1,4 @@
 import { RouteConfig } from 'vue-router'
-import { Store, AppStore } from '../store'
 
 const routes: RouteConfig[] = [
   {
@@ -12,11 +11,7 @@ const routes: RouteConfig[] = [
       },
       {
         path: 'login',
-        component: () => import('pages/Login.vue'),
-        beforeEnter: (to, from, next) => {
-          const store = Store as AppStore
-          next()
-        }
+        component: () => import('pages/Login.vue')
       },
       {
         path: 'paintings',

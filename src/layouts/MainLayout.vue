@@ -13,11 +13,3 @@ export default {
   name: 'MainLayout'
 }
 </script>
-
-<style lang="scss" scoped>
-.centering {
-  display: grid;
-  place-items:  center;
-  height: 100vh;
-}
-</style>

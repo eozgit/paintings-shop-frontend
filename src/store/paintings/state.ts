@@ -24,4 +24,18 @@ const state: PaintingsStateInterface = {
   }
 }
 
+interface Range {
+  min: number
+  max: number
+}
+
+export interface PaintingQuery {
+  page: number
+  title?: string
+  year?: string
+  medium: string
+  height: Range
+  width: Range
+}
+
 export default state

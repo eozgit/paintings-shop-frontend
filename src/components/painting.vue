@@ -50,6 +50,6 @@ export default defineComponent({
 }
 .item-card {
   width: 20em;
-  margin: 2em;
+  margin: 0 2em;
 }
 </style>
