@@ -8,13 +8,13 @@
           <q-badge>
             Height: {{ height.min }}″ to {{ height.max }}″
           </q-badge>
-          <q-range v-model="height" :min="5" :max="40" @change="list" />
+          <q-range clearable v-model="height" :min="5" :max="40" @change="list" />
         </div>
         <div class="width-16em q-mx-md">
           <q-badge>
             Width: {{ width.min }}″ to {{ width.max }}″
           </q-badge>
-          <q-range v-model="width" :min="5" :max="60" @change="list" />
+          <q-range clearable v-model="width" :min="5" :max="60" @change="list" />
         </div>
     </div>
     <div class="q-pa-xs row items-start q-gutter-xs">

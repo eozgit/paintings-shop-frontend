@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-card class="item-card">
+    <q-card class="item-card" @click="cardClick">
       <q-img
         :src="painting.imageUrl + '?w=500&h=500&crop=1'"
         basic
@@ -14,7 +14,7 @@
         <div class="align-right">
           <div>{{ painting.height }}" x {{painting.width}}"</div>
           <div>{{ painting.media }}</div>
-          <div>{{ painting.price | currency }}</div>
+          <div>£{{ painting.price | currency }}</div>
         </div>
       </q-card-section>
     </q-card>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs, onMounted, computed } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'painting',
@@ -35,11 +35,15 @@ export default defineComponent({
       return value || 'Untitled'
     },
     currency: function (value) {
-      return '£' + value.toFixed(2)
+      return value.toFixed(2)
     }
   },
   setup (props) {
-    return props
+    function cardClick (e) {
+      console.log(props)
+    }
+
+    return { ...props, cardClick }
   }
 })
 </script>

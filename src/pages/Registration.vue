@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { register } from '../client'
 
 interface FormData {
       username: string,
@@ -54,14 +55,6 @@ interface FormData {
       password: string,
       confirm: string,
       hints: string[]
-}
-
-interface RegistrationResponse {
-    key?: string
-    username?: string[],
-    email?: string[],
-    password1?: string[],
-    password2?: string[],
 }
 
 export default defineComponent({
@@ -77,25 +70,7 @@ export default defineComponent({
     const formData = reactive(data)
 
     async function onSubmit () {
-      const headers = new Headers()
-      headers.append('Content-Type', 'application/json')
-
-      const body = JSON.stringify({
-        username: formData.username,
-        email: `${new Date().getTime()}@example.com`,
-        password1: formData.password,
-        password2: formData.confirm
-      })
-
-      const requestOptions = {
-        method: 'POST',
-        headers,
-        body
-      }
-
-      const response = await fetch('http://localhost:8000/rest-auth/registration/', requestOptions)
-
-      const json = await response.json() as RegistrationResponse
+      const json = await register(formData.username, formData.password, formData.confirm)
 
       if (json.key) {
         context.root.$options.router?.push('login');

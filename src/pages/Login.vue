@@ -38,19 +38,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { getToken } from 'src/client'
 
 interface FormData {
       username: string,
       password: string,
       hints: string[]
-}
-
-interface LoginResponse {
-    refresh?: string,
-    access?: string,
-    username?: string[],
-    password?: string[],
-    detail?: string
 }
 
 export default defineComponent({
@@ -64,23 +57,7 @@ export default defineComponent({
     const formData = reactive(data)
 
     async function onSubmit () {
-      const headers = new Headers()
-      headers.append('Content-Type', 'application/json')
-
-      const body = JSON.stringify({
-        username: formData.username,
-        password: formData.password
-      })
-
-      const requestOptions = {
-        method: 'POST',
-        headers,
-        body
-      }
-
-      const response = await fetch('http://localhost:8000/api/token/', requestOptions)
-
-      const json = await response.json() as LoginResponse
+      const json = await getToken(formData.username, formData.password)
 
       if (json.access) {
         localStorage.token = json.access
