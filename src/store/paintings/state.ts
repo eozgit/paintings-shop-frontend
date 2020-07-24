@@ -1,4 +1,4 @@
-import { Painting } from 'src/components/models'
+import { Painting, PaintingDimensions } from 'src/components/models'
 
 export interface PaintingsData {
   count: number,
@@ -11,7 +11,7 @@ export interface PaintingsStateInterface {
   count: number;
   token: string;
   paintingsData: PaintingsData;
-  detail: Painting | null;
+  detail: Painting & PaintingDimensions | null;
 }
 
 const state: PaintingsStateInterface = {

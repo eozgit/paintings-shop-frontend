@@ -12,7 +12,7 @@ export default {
     if (token) {
       this.$store.dispatch('paintings/setToken', token)
     } else {
-      this.$router.push('login')
+      this.$router.push('/login')
     }
   }
 }
