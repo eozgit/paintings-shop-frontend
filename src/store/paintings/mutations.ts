@@ -1,5 +1,6 @@
 import { MutationTree } from 'vuex'
 import { PaintingsStateInterface, PaintingsData } from './state'
+import { Painting } from 'src/components/models'
 
 const mutation: MutationTree<PaintingsStateInterface> = {
   increment (state: PaintingsStateInterface) {
@@ -10,6 +11,9 @@ const mutation: MutationTree<PaintingsStateInterface> = {
   },
   setPaintingsData (state: PaintingsStateInterface, payload: PaintingsData) {
     state.paintingsData = payload
+  },
+  setPaintingDetails (state: PaintingsStateInterface, payload: Painting) {
+    state.detail = payload
   }
 }
 

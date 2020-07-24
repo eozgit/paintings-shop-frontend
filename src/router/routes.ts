@@ -19,6 +19,13 @@ const routes: RouteConfig[] = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: 'paintings/:id',
+        component: () => import('pages/Detail.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },

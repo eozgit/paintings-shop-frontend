@@ -11,6 +11,7 @@ export interface PaintingsStateInterface {
   count: number;
   token: string;
   paintingsData: PaintingsData;
+  detail: Painting | null;
 }
 
 const state: PaintingsStateInterface = {
@@ -21,7 +22,8 @@ const state: PaintingsStateInterface = {
     next: null,
     previous: null,
     results: []
-  }
+  },
+  detail: null
 }
 
 interface Range {

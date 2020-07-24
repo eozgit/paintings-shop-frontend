@@ -1,21 +1,21 @@
 <template>
   <div class="centering margin-1em">
     <div class="q-px-xs row items-start q-gutter-xs">
-        <q-input clearable outlined v-model="title" label="Title" class="min-width-16em q-mx-md" @input="list" />
-        <q-select clearable outlined v-model="year" :options="years" label="Year" class="min-width-16em q-mx-md" @input="list" />
-        <q-select clearable outlined v-model="medium" :options="media" label="Media" class="min-width-16em q-mx-md" @input="list" />
-        <div class="width-16em q-mx-md">
-          <q-badge>
-            Height: {{ height.min }}″ to {{ height.max }}″
-          </q-badge>
-          <q-range clearable v-model="height" :min="5" :max="40" @change="list" />
-        </div>
-        <div class="width-16em q-mx-md">
-          <q-badge>
-            Width: {{ width.min }}″ to {{ width.max }}″
-          </q-badge>
-          <q-range clearable v-model="width" :min="5" :max="60" @change="list" />
-        </div>
+      <q-input clearable outlined v-model="title" label="Title" class="min-width-16em q-mx-md" @input="list" />
+      <q-select clearable outlined v-model="year" :options="years" label="Year" class="min-width-16em q-mx-md" @input="list" />
+      <q-select clearable outlined v-model="medium" :options="media" label="Media" class="min-width-16em q-mx-md" @input="list" />
+      <div class="width-16em q-mx-md">
+        <q-badge>
+          Height: {{ height.min }}″ to {{ height.max }}″
+        </q-badge>
+        <q-range clearable v-model="height" :min="5" :max="40" @change="list" />
+      </div>
+      <div class="width-16em q-mx-md">
+        <q-badge>
+          Width: {{ width.min }}″ to {{ width.max }}″
+        </q-badge>
+        <q-range clearable v-model="width" :min="5" :max="60" @change="list" />
+      </div>
     </div>
     <div class="q-pa-xs row items-start q-gutter-xs">
       <painting v-for="painting in paintings" :key="painting.id" :painting="painting" />

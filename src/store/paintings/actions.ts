@@ -2,7 +2,7 @@ import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { PaintingsStateInterface, PaintingQuery } from './state'
 import { Router } from 'src/router'
-import { loadPaintingData } from 'src/client'
+import { loadPaintingData, loadPaintingDetails } from 'src/client'
 
 const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
   INCREMENT (context) {
@@ -18,6 +18,15 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
       Router.push('login')
     } else {
       context.commit('setPaintingsData', json)
+    }
+  },
+  async loadPainting (context, id: number) {
+    const json = await loadPaintingDetails(context.getters.token, id)
+
+    if (json.code === 'token_not_valid') {
+      Router.push('login')
+    } else {
+      context.commit('setPaintingDetails', json)
     }
   }
 }

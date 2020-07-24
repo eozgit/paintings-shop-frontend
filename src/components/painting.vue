@@ -38,9 +38,9 @@ export default defineComponent({
       return value.toFixed(2)
     }
   },
-  setup (props) {
+  setup (props, context) {
     function cardClick (e) {
-      console.log(props)
+      context.root.$options.router?.push(`/paintings/${props.painting.id}`);
     }
 
     return { ...props, cardClick }
