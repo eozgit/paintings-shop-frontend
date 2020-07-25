@@ -1,29 +1,36 @@
 import { Painting, PaintingDimensions } from 'src/components/models'
 
 export interface PaintingsData {
-  count: number,
-  next: string | null,
+  count: number
+  next: string | null
   previous: string | null
   results: Painting[]
 }
 
 export interface PaintingsStateInterface {
-  count: number;
-  token: string;
-  paintingsData: PaintingsData;
-  detail: Painting & PaintingDimensions | null;
+  count: number
+  token: string
+  paintingsData: PaintingsData
+  detail: Painting & PaintingDimensions | null
+  basket: number[]
+  outOfStock: number[]
 }
+
+const basket = localStorage.getItem('basket')
+const outOfStock = localStorage.getItem('outOfStock')
 
 const state: PaintingsStateInterface = {
   count: 0,
-  token: '',
+  token: localStorage.getItem('token') || '',
   paintingsData: {
     count: 0,
     next: null,
     previous: null,
     results: []
   },
-  detail: null
+  detail: null,
+  basket: basket ? JSON.parse(basket) : [],
+  outOfStock: outOfStock ? outOfStock.split(',').map(i => +i) : []
 }
 
 interface Range {

@@ -29,6 +29,9 @@
       >
       </q-pagination>
     </div>
+    <q-page-sticky position="top-right" :offset="[-30, 110]" v-if="basket.length">
+      <q-btn fab icon="shopping_cart" color="primary" :label="basket.length" padding="md 3rem md md" to="/checkout" />
+    </q-page-sticky>
   </div>
 </template>
 
@@ -54,7 +57,8 @@ export default defineComponent({
       width: { min: 5, max: 60 },
       paintingsData: computed(() => context.root.$store.state.paintings.paintingsData),
       paintings: computed(() => state.paintingsData.results),
-      maxPage: computed(() => Math.ceil(state.paintingsData.count / itemsPerPage))
+      maxPage: computed(() => Math.ceil(state.paintingsData.count / itemsPerPage)),
+      basket: computed(() => context.root.$store.state.paintings.basket)
     })
     const years = ['2016', '2017', '2018', '2019']
     const media = ['Mixed', 'Canvas', 'Ink', 'Paper', 'Watercolours']
@@ -74,7 +78,7 @@ export default defineComponent({
     }
 
     function loadPaintings (query: PaintingQuery) {
-      context.root.$store.dispatch('paintings/loadPaintings', query)
+      context.root.$store.dispatch('paintings/loadPaintings', { query })
     }
 
     onMounted(() => {

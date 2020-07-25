@@ -14,6 +14,12 @@ const mutation: MutationTree<PaintingsStateInterface> = {
   },
   setPaintingDetails (state: PaintingsStateInterface, payload: Painting & PaintingDimensions) {
     state.detail = payload
+  },
+  addToBasket (state: PaintingsStateInterface, id) {
+    state.basket = [ ...state.basket, id ]
+  },
+  removeFromBasket (state: PaintingsStateInterface, id) {
+    state.basket = state.basket.filter(i => i !== id)
   }
 }
 

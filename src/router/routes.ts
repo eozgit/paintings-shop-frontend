@@ -26,6 +26,13 @@ const routes: RouteConfig[] = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: 'checkout',
+        component: () => import('pages/Checkout.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },

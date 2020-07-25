@@ -61,7 +61,7 @@ export default defineComponent({
 
       if (json.access) {
         localStorage.token = json.access
-        context.root.$store.dispatch('paintings/setToken', json.access)
+        context.root.$store.dispatch('paintings/setToken', { token: json.access })
         context.root.$options.router?.push('paintings');
       }
 

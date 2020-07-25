@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-card class="item-card" @click="cardClick">
+    <q-card class="item-card" @click="cardClick" style="cursor: pointer;">
       <q-img
         :src="painting.imageUrl + '?w=500&h=500&crop=1'"
         basic

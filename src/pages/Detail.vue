@@ -17,26 +17,14 @@
         <p>{{ height }}" x {{ width }}"</p>
         <p>£{{ price | currency }}</p>
         <div class="q-mt-xl">
-          <q-btn color="primary" icon="add_shopping_cart" label="Add to basket" @click="basket = true" />
+          <q-btn color="primary" icon="add_shopping_cart" :label="itemInBasket ? 'Item in basket' : 'Add to basket'" @click="addToBasket" :disable="itemInBasket" />
           <q-btn flat color="primary" v-go-back="'/paintings'" label="Back" class="q-ml-sm" />
         </div>
       </div>
     </div>
-    <q-dialog v-model="basket">
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">Basket</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+    <q-page-sticky position="top-right" :offset="[-30, 110]" v-if="basket.length">
+      <q-btn fab icon="shopping_cart" color="primary" :label="basket.length" padding="md 3rem md md" to="/checkout" />
+    </q-page-sticky>
   </div>
 </template>
 
@@ -46,7 +34,7 @@ export default defineComponent({
   name: 'Detail',
   filters: {
     date: function (value: string) {
-      return value.substring(0, 4)
+      return value?.substring(0, 4)
     },
     title: function (value: string) {
       return value || 'Untitled'
@@ -59,7 +47,6 @@ export default defineComponent({
     const max = 500
 
     const state = reactive({
-      basket: false,
       painting: computed(() => context.root.$store.state.paintings.detail),
       title: computed(() => state.painting?.title),
       date: computed(() => state.painting?.date),
@@ -80,15 +67,21 @@ export default defineComponent({
         const height = vertical ? max : (imageHeight / imageWidth) * max
         const width = vertical ? (imageWidth / imageHeight) * max : max
         return { height: height + 'px', width: width + 'px' }
-      })
+      }),
+      basket: computed(() => context.root.$store.state.paintings.basket),
+      itemInBasket: (computed(() => state.basket.includes(+context.root.$route.params.id)))
     })
+
+    function addToBasket (e) {
+      context.root.$store.dispatch('paintings/addToBasket', { id: +context.root.$route.params.id })
+    }
 
     onMounted(() => {
       context.root.$store.commit('setPaintingDetails', {})
-      context.root.$store.dispatch('paintings/loadPainting', context.root.$route.params.id)
+      context.root.$store.dispatch('paintings/loadPainting', { id: context.root.$route.params.id })
     })
 
-    return { ...toRefs(state) }
+    return { ...toRefs(state), addToBasket }
   }
 })
 </script>
