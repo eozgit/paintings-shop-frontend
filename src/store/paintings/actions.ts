@@ -34,15 +34,22 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
       Router.push('/login')
     } else {
       context.commit('setPaintingDetails', { ...json, ...imageDims })
+      context.commit('setPaintingById', json)
     }
   },
-  addToBasket (context, { id }) {
-    context.commit('addToBasket', id)
+  addToBasket (context, { painting }) {
+    context.commit('addToBasket', painting.id)
+    context.commit('setPaintingById', painting)
     localStorage.setItem('basket', JSON.stringify(context.state.basket))
   },
   removeFromBasket (context, { id }) {
     context.commit('removeFromBasket', id)
     localStorage.setItem('basket', JSON.stringify(context.state.basket))
+  },
+  emptyBasket (context) {
+    context.commit('emptyBasket')
+    localStorage.setItem('basket', JSON.stringify(context.state.basket))
+    localStorage.setItem('outOfStock', JSON.stringify(context.state.outOfStock))
   }
 }
 

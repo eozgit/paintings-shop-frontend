@@ -13,7 +13,10 @@ export interface PaintingsStateInterface {
   paintingsData: PaintingsData
   detail: Painting & PaintingDimensions | null
   basket: number[]
-  outOfStock: number[]
+  outOfStock: number[],
+  paintingsById: {
+    [id: number]: Painting
+  }
 }
 
 const basket = localStorage.getItem('basket')
@@ -30,7 +33,8 @@ const state: PaintingsStateInterface = {
   },
   detail: null,
   basket: basket ? JSON.parse(basket) : [],
-  outOfStock: outOfStock ? outOfStock.split(',').map(i => +i) : []
+  outOfStock: outOfStock ? JSON.parse(outOfStock) : [],
+  paintingsById: { }
 }
 
 interface Range {

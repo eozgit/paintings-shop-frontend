@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { MutationTree } from 'vuex'
 import { PaintingsStateInterface, PaintingsData } from './state'
 import { Painting, PaintingDimensions } from 'src/components/models'
@@ -20,6 +21,13 @@ const mutation: MutationTree<PaintingsStateInterface> = {
   },
   removeFromBasket (state: PaintingsStateInterface, id) {
     state.basket = state.basket.filter(i => i !== id)
+  },
+  setPaintingById (state: PaintingsStateInterface, painting: Painting) {
+    Vue.set(state.paintingsById, painting.id, painting)
+  },
+  emptyBasket (state: PaintingsStateInterface) {
+    state.outOfStock = [...new Set([...state.outOfStock, ...state.basket])]
+    state.basket = []
   }
 }
 

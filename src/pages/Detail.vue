@@ -17,7 +17,7 @@
         <p>{{ height }}" x {{ width }}"</p>
         <p>£{{ price | currency }}</p>
         <div class="q-mt-xl">
-          <q-btn color="primary" icon="add_shopping_cart" :label="itemInBasket ? 'Item in basket' : 'Add to basket'" @click="addToBasket" :disable="itemInBasket" />
+          <q-btn color="primary" icon="add_shopping_cart" :label="itemAvailability" @click="addToBasket" :disable="itemDisabled" />
           <q-btn flat color="primary" v-go-back="'/paintings'" label="Back" class="q-ml-sm" />
         </div>
       </div>
@@ -40,7 +40,7 @@ export default defineComponent({
       return value || 'Untitled'
     },
     currency: function (value: number) {
-      return value.toFixed(2)
+      return value?.toFixed(2)
     }
   },
   setup (props, context) {
@@ -69,16 +69,21 @@ export default defineComponent({
         return { height: height + 'px', width: width + 'px' }
       }),
       basket: computed(() => context.root.$store.state.paintings.basket),
-      itemInBasket: (computed(() => state.basket.includes(+context.root.$route.params.id)))
+      itemDisabled: (computed(() => state.basket.includes(state.painting?.id) || state.outOfStock.includes(state.painting?.id))),
+      outOfStock: computed(() => context.root.$store.state.paintings.outOfStock),
+      itemAvailability: computed(() => {
+        if (state.basket.includes(state.painting?.id)) return 'Item in basket'
+        return state.outOfStock.includes(state.painting?.id) ? 'Sold' : 'Add to basket'
+      })
     })
 
     function addToBasket (e) {
-      context.root.$store.dispatch('paintings/addToBasket', { id: +context.root.$route.params.id })
+      context.root.$store.dispatch('paintings/addToBasket', { painting: state.painting })
     }
 
     onMounted(() => {
       context.root.$store.commit('setPaintingDetails', {})
-      context.root.$store.dispatch('paintings/loadPainting', { id: context.root.$route.params.id })
+      context.root.$store.dispatch('paintings/loadPainting', { id: +context.root.$route.params.id })
     })
 
     return { ...toRefs(state), addToBasket }
