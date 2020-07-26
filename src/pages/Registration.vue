@@ -31,8 +31,13 @@
         :rules="[ val => val && val.length > 0 || 'Password confirmation cannot be empty']"
       />
 
-      <div>
-        <q-btn label="Register" type="submit" color="primary"/>
+      <div class="row">
+        <div class="col q-mx-md">
+          <q-btn label="Register" type="submit" color="primary"/>
+        </div>
+        <div class="col q-mx-md">
+          <q-btn flat label="Login" type="button" color="primary" to="/login" />
+        </div>
       </div>
 
       <ul v-if="hints.length" class="warnings text-negative">

@@ -55,10 +55,11 @@ export default defineComponent({
       page: 1,
       height: { min: 5, max: 40 },
       width: { min: 5, max: 60 },
-      paintingsData: computed(() => context.root.$store.state.paintings.paintingsData),
+      store: computed(() => context.root.$store.state.paintings),
+      paintingsData: computed(() => state.store.paintingsData),
       paintings: computed(() => state.paintingsData.results),
       maxPage: computed(() => Math.ceil(state.paintingsData.count / itemsPerPage)),
-      basket: computed(() => context.root.$store.state.paintings.basket)
+      basket: computed(() => state.store.basket)
     })
     const years = ['2016', '2017', '2018', '2019']
     const media = ['Mixed', 'Canvas', 'Ink', 'Paper', 'Watercolours']

@@ -53,11 +53,11 @@
     <q-dialog v-model="result" persistent>
       <q-card>
         <q-card-section>
-          <div class="text-h6">Congratulations</div>
+          <div class="text-h6">Congratulations!</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          Your payment has gone through!
+          Your payment has gone through.
         </q-card-section>
 
         <q-card-actions align="right">
@@ -97,12 +97,11 @@ export default defineComponent({
 
     function buyNow () {
       state.result = true
-      context.root.$store.dispatch('paintings/emptyBasket')
+      // context.root.$store.dispatch('paintings/emptyBasket')
     }
 
     onMounted(() => {
       const idsToLoad = state.basket.filter(id => !state.idsOfLoaded.includes(id))
-      console.log(idsToLoad)
       for (const id of idsToLoad) {
         context.root.$store.dispatch('paintings/loadPainting', { id })
       }

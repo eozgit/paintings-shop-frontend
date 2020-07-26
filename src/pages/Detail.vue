@@ -47,7 +47,8 @@ export default defineComponent({
     const max = 500
 
     const state = reactive({
-      painting: computed(() => context.root.$store.state.paintings.detail),
+      store: computed(() => context.root.$store.state.paintings),
+      painting: computed(() => state.store.detail),
       title: computed(() => state.painting?.title),
       date: computed(() => state.painting?.date),
       media: computed(() => state.painting?.media),
@@ -68,9 +69,9 @@ export default defineComponent({
         const width = vertical ? (imageWidth / imageHeight) * max : max
         return { height: height + 'px', width: width + 'px' }
       }),
-      basket: computed(() => context.root.$store.state.paintings.basket),
+      basket: computed(() => state.store.basket),
+      outOfStock: computed(() => state.store.outOfStock),
       itemDisabled: (computed(() => state.basket.includes(state.painting?.id) || state.outOfStock.includes(state.painting?.id))),
-      outOfStock: computed(() => context.root.$store.state.paintings.outOfStock),
       itemAvailability: computed(() => {
         if (state.basket.includes(state.painting?.id)) return 'Item in basket'
         return state.outOfStock.includes(state.painting?.id) ? 'Sold' : 'Add to basket'
