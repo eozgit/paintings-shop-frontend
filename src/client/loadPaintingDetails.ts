@@ -1,5 +1,5 @@
-import { Painting } from "src/components/models"
-import apiUrl from "./apiUrl"
+import { Painting } from 'src/components/models'
+import apiUrl from './apiUrl'
 
 export default async (token: string, id: number): Promise<Painting & { code: string }> => {
   const headers = new Headers()

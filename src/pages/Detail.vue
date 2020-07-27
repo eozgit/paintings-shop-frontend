@@ -46,7 +46,7 @@ export default defineComponent({
   setup (props, context) {
     const max = 500
 
-    const state = reactive({
+    const state: any = reactive({
       store: computed(() => context.root.$store.state.paintings),
       painting: computed(() => state.store.detail),
       title: computed(() => state.painting?.title),
@@ -78,7 +78,7 @@ export default defineComponent({
       })
     })
 
-    function addToBasket (e) {
+    function addToBasket () {
       context.root.$store.dispatch('paintings/addToBasket', { painting: state.painting })
     }
 

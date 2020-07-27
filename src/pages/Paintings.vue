@@ -38,17 +38,17 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted, computed } from '@vue/composition-api'
 import { debounce } from 'quasar'
-import Painting from 'src/components/painting'
 import { PaintingQuery } from '../store/paintings/state'
+import painting from 'src/components/painting.vue'
 
 export default defineComponent({
   name: 'Paintings',
   components: {
-    painting: Painting
+    painting
   },
   setup (props, context) {
     const itemsPerPage = 4
-    const state = reactive({
+    const state: any = reactive({
       title: '',
       year: null,
       medium: '',
@@ -73,7 +73,7 @@ export default defineComponent({
       loadPaintingsCurrent(1)
     }, 1000)
 
-    function loadPaintingsCurrent(page: number) {
+    function loadPaintingsCurrent (page: number) {
       const { title, year, medium, height, width } = state
       loadPaintings({ page, title, year, medium, height, width })
     }

@@ -70,6 +70,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed, onMounted } from '@vue/composition-api'
+import { Painting } from '../components/models'
 export default defineComponent({
   name: 'Checkout',
   filters: {
@@ -80,15 +81,15 @@ export default defineComponent({
       return value?.toFixed(2)
     }
   },
-  setup(props, context) {
-    const state = reactive({
+  setup (props, context) {
+    const state: any = reactive({
       result: false,
       store: computed(() => context.root.$store.state.paintings),
       basket: computed(() => state.store.basket),
       paintingsById: computed(() => state.store.paintingsById),
       idsOfLoaded: computed(() => Object.keys(state.paintingsById).map(i => +i)),
-      list: computed(() => Object.values(state.paintingsById).filter(({ id }) => state.basket.includes(id))),
-      total: computed(() => state.list.reduce((sum, item) => sum + item.price, 0)),
+      list: computed(() => Object.values(state.paintingsById).filter((painting: any) => state.basket.includes(painting.id))),
+      total: computed(() => state.list.reduce((sum: number, item: Painting) => sum + item.price, 0))
     })
 
     function removeItem (id: number) {
@@ -101,7 +102,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      const idsToLoad = state.basket.filter(id => !state.idsOfLoaded.includes(id))
+      const idsToLoad = state.basket.filter((id: number) => !state.idsOfLoaded.includes(id))
       for (const id of idsToLoad) {
         context.root.$store.dispatch('paintings/loadPainting', { id })
       }

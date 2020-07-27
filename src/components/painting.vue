@@ -21,26 +21,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'painting',
   props: ['painting'],
   filters: {
-    date: function (value) {
+    date: function (value: string): string {
       return value.substring(0, 4)
     },
-    title: function (value) {
+    title: function (value: string) {
       return value || 'Untitled'
     },
-    currency: function (value) {
+    currency: function (value: number) {
       return value.toFixed(2)
     }
   },
   setup (props, context) {
-    function cardClick (e) {
-      context.root.$options.router?.push(`/paintings/${props.painting.id}`);
+    function cardClick () {
+      context.root.$options.router?.push(`/paintings/${props.painting.id}`)
     }
 
     return { ...props, cardClick }

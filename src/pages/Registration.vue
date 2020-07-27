@@ -78,7 +78,7 @@ export default defineComponent({
       const json = await register(formData.username, formData.password, formData.confirm)
 
       if (json.key) {
-        context.root.$options.router?.push('login');
+        context.root.$options.router?.push('login')
       }
 
       formData.hints = []

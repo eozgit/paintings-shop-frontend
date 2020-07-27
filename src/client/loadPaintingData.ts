@@ -1,5 +1,5 @@
-import { PaintingQuery, PaintingsData } from "src/store/paintings/state"
-import apiUrl from "./apiUrl"
+import { PaintingQuery, PaintingsData } from 'src/store/paintings/state'
+import apiUrl from './apiUrl'
 
 export default async (token: string, { page, title, year, medium, height, width }: PaintingQuery) => {
   const headers = new Headers()

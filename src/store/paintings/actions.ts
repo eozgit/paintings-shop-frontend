@@ -3,6 +3,7 @@ import { StoreInterface } from '../index'
 import { PaintingsStateInterface } from './state'
 import { Router } from 'src/router'
 import { loadPaintingData, loadPaintingDetails } from 'src/client'
+import { PaintingDimensions } from 'src/components/models'
 
 const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
   INCREMENT (context) {
@@ -23,7 +24,7 @@ const actions: ActionTree<PaintingsStateInterface, StoreInterface> = {
   async loadPainting (context, { id }) {
     const json = await loadPaintingDetails(context.getters.token, id)
 
-    const imageDims = await new Promise((resolve, reject) => {
+    const imageDims: PaintingDimensions = await new Promise((resolve, reject) => {
       const image = new Image()
       image.onload = () => resolve({ imageHeight: image.height, imageWidth: image.width })
       image.onerror = reject

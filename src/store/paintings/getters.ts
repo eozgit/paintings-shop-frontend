@@ -5,7 +5,7 @@ import { PaintingsStateInterface } from './state'
 const getters: GetterTree<PaintingsStateInterface, StoreInterface> = {
   count: state => state.count,
   token: state => state.token,
-  paintings: state => state.paintings
+  paintings: state => state.paintingsData.results
 }
 
 export default getters
