@@ -1,26 +1,43 @@
-# Paintings Shop (paintings-shop-frontend)
+### Paintings Shop
 
-Art themed e-commerce app
 
-## Install the dependencies
-```bash
-yarn
-```
+[Live App](http://ec2-54-198-93-144.compute-1.amazonaws.com/static/spa/index.html#/registration)
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
 
-### Lint the files
-```bash
-yarn run lint
-```
+##### Preview
 
-### Build the app for production
-```bash
-quasar build
-```
+<img src='./shop.gif' alt='Paintings Shop preview' />
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+
+
+##### Watch in HD
+
+<a href="https://youtu.be/MFX54ZGLue4" 
+target="_blank"><img src="./shop.png" 
+alt="Paintings Shop" width="428" height="241" /></a>
+
+
+
+[Backend Code](https://github.com/eozgit/paintings-shop-backend)
+
+
+
+###### Stack
+-   Python
+-   Django Rest Framework
+-   Vue
+-   Vuex
+-   Quasar Framework
+-   TypeScript
+-   Docker
+-   AWS Fargate
+-   Amazon ECS
+-   Amazon ECR
+
+
+
+###### Features
+-   Register/Login
+-   Browse/filter items
+-   Add to cart
+-   Checkout

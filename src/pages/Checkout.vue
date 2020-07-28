@@ -98,7 +98,7 @@ export default defineComponent({
 
     function buyNow () {
       state.result = true
-      // context.root.$store.dispatch('paintings/emptyBasket')
+      context.root.$store.dispatch('paintings/emptyBasket')
     }
 
     onMounted(() => {
